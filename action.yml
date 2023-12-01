@@ -4,10 +4,10 @@ inputs:
   targetNetId:
     description: 'NetId of target'
     required: true
- runs:
-   using: 'composite'
+runs:
+  using: 'composite'
    steps:
-     - name: Display the path
+     - name: Set the parameters
        shell: powershell
        run: |
          powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1 ${{ inputs.targetNetId }}
