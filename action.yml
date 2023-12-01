@@ -5,12 +5,9 @@ inputs:
     description: 'NetId of target'
     required: true
     default: '192.168.4.1.1.1'
-outputs:
-  exitCode:
-    description: 'Exit code of action'
-    value: '1234'
 runs:
   using: 'composite'
   steps:
-    - run: Write-Host 'Hello world from the build action'
-      shell: powershell
+    - shell: powershell
+      run: |
+        -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
