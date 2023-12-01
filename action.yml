@@ -1,11 +1,11 @@
-name: 'TwinCAT Build Action'
-description: 'Custom action'
+name: "TwinCAT Build Action"
+description: "Custom action"
 inputs:
   targetNetId:
-    description: 'NetId of target'
+    description: "NetId of target"
     required: true
 runs:
-  using: 'composite'
+  using: "composite"
    steps:
      - name: Set the parameters
        shell: powershell
