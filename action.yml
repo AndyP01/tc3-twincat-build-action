@@ -5,8 +5,8 @@ inputs:
     description: 'NetId of target'
     required: true
  runs:
-  using: 'composite'
-  steps:
-    - shell: powershell
-      run: |
-        -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
+   using: 'composite'
+   steps:
+     - shell: powershell
+       run: |
+         -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
