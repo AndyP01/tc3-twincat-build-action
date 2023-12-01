@@ -10,4 +10,4 @@ inputs:
      - name: Display the path
        shell: powershell
        run: |
-         powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
+         powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1 ${{ inputs.targetNetId }}
