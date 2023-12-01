@@ -7,7 +7,5 @@ inputs:
 runs:
   using: "composite"
    steps:
-     - name: Set the parameters
+     - run: powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1 ${{ inputs.targetNetId }}
        shell: powershell
-       run: |
-         powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1 ${{ inputs.targetNetId }}
