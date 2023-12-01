@@ -9,4 +9,4 @@ inputs:
    steps:
      - shell: powershell
        run: |
-         -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
+         powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
