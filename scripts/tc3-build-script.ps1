@@ -6,7 +6,7 @@ param(
 Write-Host "tc3-build-script Running"
 Write-Host "Received parameters:"
 
-#Write-Host "Target NetId: $targetNetId"
+Write-Host "Target NetId: $targetNetId"
 
 
 # Try-Catch block for error handling
