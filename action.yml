@@ -1,12 +1,22 @@
 name: "TwinCAT Build Action"
 description: "Custom action"
 inputs:
+  solutionPath:
+    description: "Full path of solution file"
+    required: true
   targetNetId:
     description: "NetId of target"
+    required: true
+  targetPlatform:
+    description: "Target CPU architecture"
     required: true
 runs:
   using: "composite"
   steps:
-    - run: |
-        powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1 ${{ inputs.targetNetId }}
-      shell: powershell
+    - shell : powershell
+      env: 
+        JSON_INPUTS: ${{ toJSON(inputs) }}
+      run: |
+        powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1 ${{ inputs.solutionPath }} ${{ inputs.targetNetId }} ${{ inputs.targetPlatform }}
+        Write-Host $JSON_INPUTS
+ 
