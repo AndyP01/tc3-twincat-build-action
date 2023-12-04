@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    runs-on: VBox-3.1.4024
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
