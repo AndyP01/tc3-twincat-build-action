@@ -18,7 +18,7 @@ jobs:
       - name: Run Action
         uses: ./
         with:
-          solutionPath: '"C:/temp/temp.sln"'
+          solutionPath: '"C:\temp\temp.sln"'
           targetNetId: '"192.168.4.1.1.1"'
           targetPlatform: '"TwinCAT RT (x64)"'
           
