@@ -20,5 +20,5 @@ jobs:
         with:
           solutionPath: 'C:\temp\temp.sln'
           targetNetId: '192.168.4.1.1.1'
-          targetPlatform: '"TwinCAT RT (x64)"'
-           
+          targetPlatform: '"TwinCAT RT (x64)"' # double quotes sent as part of the string to stop satring being split on spaces
+          
