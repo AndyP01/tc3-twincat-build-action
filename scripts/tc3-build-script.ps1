@@ -2,7 +2,6 @@ param(
   [string]$solutionPath,
   [string]$targetNetId,
   [string]$targetPlatform,
-  [string]$json
 )
 
 # Print received parameters for logging
@@ -12,8 +11,6 @@ Write-Host "Received parameters:"
 Write-Host "Target NetId: $solutionPath"
 Write-Host "Target NetId: $targetNetId"
 Write-Host "Target NetId: $targetPlatform"
-Write-Host $json
-
 
 # Try-Catch block for error handling
 try {
