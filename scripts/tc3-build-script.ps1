@@ -1,7 +1,7 @@
 param(
   [string]$solutionPath,
   [string]$targetNetId,
-  [string]$targetPlatform,
+  [string]$targetPlatform
 )
 
 # Print received parameters for logging
