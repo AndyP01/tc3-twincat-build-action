@@ -12,11 +12,8 @@ inputs:
     required: true
 runs:
   using: "composite"
-  env:
-    JSON_INPUTS: {{ toJSON(inputs) }}
   steps:
     - shell : powershell
       run: |
         powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1 ${{ inputs.solutionPath }} ${{ inputs.targetNetId }} ${{ inputs.targetPlatform }}
-        Write-Host $env:JSON_INPUTS
- 
+      
