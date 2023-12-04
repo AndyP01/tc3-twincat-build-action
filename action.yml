@@ -14,9 +14,6 @@ runs:
   using: "composite"
   steps:
     - shell : powershell
-      env: 
-        JSON_INPUTS: ${{ toJSON(inputs) }}
       run: |
         powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1 ${{ inputs.solutionPath }} ${{ inputs.targetNetId }} ${{ inputs.targetPlatform }}
-        Write-Host ${{ env.JSON_INPUTS }}
-             
+ 
