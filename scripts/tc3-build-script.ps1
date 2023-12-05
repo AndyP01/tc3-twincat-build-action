@@ -2,7 +2,8 @@
 #  [string]$solutionPath,
 #  [string]$targetNetId,
 #  [string]$targetPlatform
-)
+#)
+
 # TODO pass in:
 #   shell version, e.g. TcXaeShell.DTE.15.0
 #   shell is visible or suppressed
@@ -78,13 +79,13 @@ function CheckSolutionIsValid {
 Write-Host "tc3-build-script Running"
 #Write-Host "Received parameters:"
 
-#Write-Host "Target NetId: solutionPath"
+#Write-Host "Solution path: solutionPath"
 #Write-Host "Target NetId: targetNetId"
-#Write-Host "Target NetId: targetPlatform"
+#Write-Host "Target platform: targetPlatform"
 
-Write-Host "Target NetId: $env:solutionPath"
+Write-Host "Solution path: $env:solutionPath"
 Write-Host "Target NetId: $env:targetNetId"
-Write-Host "Target NetId: $env:targetPlatform"
+Write-Host "Target platform: $env:targetPlatform"
 
 AddMessageFilterClass('') # Call function
 [EnvDteUtils.MessageFilter]::Register() # Call static Register Filter Method
