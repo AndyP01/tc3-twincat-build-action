@@ -156,6 +156,8 @@ finally {
   #}
 }
 
+[EnvDTEUtils.MessageFilter]::Revoke()
+
 # Successful execution
 Write-Host "PowerShell script executed successfully."
 exit 0
