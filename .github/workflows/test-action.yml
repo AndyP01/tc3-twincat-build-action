@@ -22,7 +22,7 @@ jobs:
       - name: Run Action
         uses: ./
         with:
-          solutionPath: $env:GITHUB_WORKSPACE
+          solutionPath: ${{ github.workspace }}
           targetNetId: '192.168.4.1.1.1'
           targetPlatform: '"TwinCAT RT (x64)"' # double quotes sent as part of the string to stop string being split on spaces
           vsShell: "TcXaeShell.DTE.15.0"      
