@@ -69,6 +69,10 @@ function CheckSolutionPathIsValid {
     [string]$FilePath
   )
 
+  if [string]::IsNullOrEmpty($FilePath) {
+    return $false
+  }
+
   if (Test-Path $FilePath -PathType Leaf -IsValid) {
         return $true
     } else {
