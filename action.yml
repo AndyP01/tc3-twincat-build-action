@@ -10,6 +10,9 @@ inputs:
   targetPlatform:
     description: "Target CPU architecture"
     required: true
+  vsShell:
+    description: "Visual Studio shell version"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -18,5 +21,6 @@ runs:
         SolutionPath: ${{ inputs.solutionPath }}
         TargetNetId: ${{ inputs.targetNetId }}
         TargetPlatform: ${{ inputs.targetPlatform }}
+        VSShell: ${{ inputs.vsShell }}
       run: |
         powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
