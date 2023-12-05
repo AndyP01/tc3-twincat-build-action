@@ -92,7 +92,7 @@ try {
   # Your logic here...
 
   # Input checks
-  if (CheckSolutionPathIsValid($solutionPath) -ne $true) {
+  if (CheckSolutionPathIsValid($env:solutionPath) -ne $true) {
     throw "Solution not found."
   }
 
