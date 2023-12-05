@@ -1,11 +1,4 @@
-#param(
-#  [string]$solutionPath,
-#  [string]$targetNetId,
-#  [string]$targetPlatform
-#)
-
 # TODO pass in:
-#   shell version, e.g. TcXaeShell.DTE.15.0
 #   shell is visible or suppressed
 
 function AddMessageFilterClass { 
@@ -77,15 +70,11 @@ function CheckSolutionIsValid {
 
 # Print received parameters for logging
 Write-Host "tc3-build-script Running"
-#Write-Host "Received parameters:"
-
-#Write-Host "Solution path: solutionPath"
-#Write-Host "Target NetId: targetNetId"
-#Write-Host "Target platform: targetPlatform"
 
 Write-Host "Solution path: $env:solutionPath"
 Write-Host "Target NetId: $env:targetNetId"
 Write-Host "Target platform: $env:targetPlatform"
+Write-Host "Visual Studio shell version: $env:vsShellVersion"
 
 AddMessageFilterClass('') # Call function
 [EnvDteUtils.MessageFilter]::Register() # Call static Register Filter Method
