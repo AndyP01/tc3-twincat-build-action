@@ -64,8 +64,16 @@ int MessagePending(IntPtr hTaskCallee, int dwTickCount, int dwPendingType);
     Add-Type -TypeDefinition $source
 }
 
-function CheckSolutionIsValid {
+function CheckSolutionPathIsValid {
+  param (
+    [string]$FilePath
+  )
 
+  if (Test-Path $FilePath -PathType Leaf -IsValid) {
+        return $true
+    } else {
+        return $false
+    }
 }
 
 # Print received parameters for logging
@@ -83,10 +91,8 @@ AddMessageFilterClass('') # Call function
 try {
   # Your logic here...
 
-  
-
   # Input checks
-  if ($solutionPath.IsNullOrEmpty) {
+  if (CheckSolutionPathIsValid($solutionPath) -ne $true) {
     throw "Solution not found."
   }
 
