@@ -15,8 +15,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - run: echo ${{ env.GITHUB_WORKSPACE }}
-
+      - name: Check-workspace
+        run: echo ${{ GITHUB_WORKSPACE }}
+        
       - name: Run Action
         uses: ./
         with:
