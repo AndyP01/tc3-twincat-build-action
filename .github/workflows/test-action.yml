@@ -17,12 +17,12 @@ jobs:
 
       - name: Check-workspace
         shell: powershell
-        run: Write-Host "${{ env.GITHUB_WORKSPACE }}"
+        run: Write-Host "$env:GITHUB_WORKSPACE"
         
       - name: Run Action
         uses: ./
         with:
-          solutionPath: ${{ env.GITHUB_WORKSPACE }}
+          solutionPath: $env:GITHUB_WORKSPACE
           targetNetId: '192.168.4.1.1.1'
           targetPlatform: '"TwinCAT RT (x64)"' # double quotes sent as part of the string to stop string being split on spaces
           vsShell: "TcXaeShell.DTE.15.0"      
