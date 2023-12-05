@@ -74,7 +74,7 @@ Write-Host "tc3-build-script Running"
 Write-Host "Solution path: $env:solutionPath"
 Write-Host "Target NetId: $env:targetNetId"
 Write-Host "Target platform: $env:targetPlatform"
-Write-Host "Visual Studio shell version: $env:vsShellVersion"
+Write-Host "Visual Studio shell version: $env:vsShell"
 
 AddMessageFilterClass('') # Call function
 [EnvDteUtils.MessageFilter]::Register() # Call static Register Filter Method
