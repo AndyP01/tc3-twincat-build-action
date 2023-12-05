@@ -69,7 +69,7 @@ function CheckSolutionPathIsValid {
     [string]$FilePath
   )
 
-  if [string]::IsNullOrEmpty($FilePath) {
+  if ([string]::IsNullOrEmpty($FilePath)) {
     return $false
   }
 
