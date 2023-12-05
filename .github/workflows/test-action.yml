@@ -14,10 +14,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Check-workspace
-        shell: powershell
-        run: Write-Host "$env:GITHUB_WORKSPACE"
         
       - name: Run Action
         uses: ./
