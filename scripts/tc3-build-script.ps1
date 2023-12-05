@@ -80,7 +80,22 @@ function CheckSolutionPathIsValid {
    return $false
 }
 
-# Print received parameters for logging
+function CheckTargetNetIdIsValid {
+  #TODO
+  return $true
+}
+
+function CheckTargetPlatformIsValid {
+  #TODO
+  return $true
+}
+
+function CheckVSShellIsValid {
+  #TODO
+  return $true
+}
+
+# Echo received parameters for logging
 Write-Host "tc3-build-script Running"
 
 Write-Host "Solution path: $env:solutionPath"
@@ -88,28 +103,41 @@ Write-Host "Target NetId: $env:targetNetId"
 Write-Host "Target platform: $env:targetPlatform"
 Write-Host "Visual Studio shell version: $env:vsShell"
 
+# Create COM message filter
 AddMessageFilterClass('') # Call function
 [EnvDteUtils.MessageFilter]::Register() # Call static Register Filter Method
 
+
 # Try-Catch block for error handling
 try {
-  # Your logic here...
-
+  
   # Input checks
   if (CheckSolutionPathIsValid($env:solutionPath) -ne $true) {
     throw "Solution not found."
   }
 
+  if (CheckTargetNetIdIsValid($env:targetNetId) -ne $true) {
+    throw "Target NetId is invalid."
+  }
 
-# Open solution
-#dte = new-object -ComObject "TcXaeShell.DTE.15.0"
-#$dte.SuppressUI = $true
-#$dte.MainWindow.Visible = $false
+  if (CheckTargetPlatformIsValid($env:targetPlatform) -ne $true) {
+    throw "Target platform is invalid."
+  }
 
-#$solution = $dte.Solution
-#$solution.Open($solutionPath)
+  if (CheckVSShellIsValid($env:vsShell) -ne $true) {
+    throw "VS Sgell requested is invalid."
+  }
 
-#$projects = $solution.Projects
+
+  # Open solution
+  #dte = new-object -ComObject $env:vsShell
+  #$dte.SuppressUI = $true
+  #$dte.MainWindow.Visible = $false
+
+  #$solution = $dte.Solution
+  #$solution.Open($solutionPath)
+
+  #$projects = $solution.Projects
 
   # Simulating a failure
   #if ($simulateFail -eq "true") {
@@ -122,6 +150,7 @@ catch {
   exit 1
 }
 finally {
+  # Clean up dte object.
   #if ($null -ne $dte) {
   #  $dte.Quit()
   #}
