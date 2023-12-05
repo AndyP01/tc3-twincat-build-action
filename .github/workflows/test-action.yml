@@ -17,7 +17,7 @@ jobs:
 
       - name: Check-workspace
         shell: powershell
-        run: echo ${{ env.GITHUB_WORKSPACE }}
+        run: Write-Host "${{ env.GITHUB_WORKSPACE }}"
         
       - name: Run Action
         uses: ./
