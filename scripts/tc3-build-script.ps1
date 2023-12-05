@@ -1,7 +1,7 @@
-param(
-  [string]$solutionPath,
-  [string]$targetNetId,
-  [string]$targetPlatform
+#param(
+#  [string]$solutionPath,
+#  [string]$targetNetId,
+#  [string]$targetPlatform
 )
 # TODO pass in:
 #   shell version, e.g. TcXaeShell.DTE.15.0
@@ -76,11 +76,15 @@ function CheckSolutionIsValid {
 
 # Print received parameters for logging
 Write-Host "tc3-build-script Running"
-Write-Host "Received parameters:"
+#Write-Host "Received parameters:"
 
-Write-Host "Target NetId: $solutionPath"
-Write-Host "Target NetId: $targetNetId"
-Write-Host "Target NetId: $targetPlatform"
+#Write-Host "Target NetId: solutionPath"
+#Write-Host "Target NetId: targetNetId"
+#Write-Host "Target NetId: targetPlatform"
+
+Write-Host "Target NetId: $env:solutionPath"
+Write-Host "Target NetId: $env:targetNetId"
+Write-Host "Target NetId: $env:targetPlatform"
 
 AddMessageFilterClass('') # Call function
 [EnvDteUtils.MessageFilter]::Register() # Call static Register Filter Method
@@ -98,14 +102,14 @@ try {
 
 
 # Open solution
-dte = new-object -ComObject "TcXaeShell.DTE.15.0"
-$dte.SuppressUI = $true
-$dte.MainWindow.Visible = $false
+#dte = new-object -ComObject "TcXaeShell.DTE.15.0"
+#$dte.SuppressUI = $true
+#$dte.MainWindow.Visible = $false
 
-$solution = $dte.Solution
-$solution.Open($solutionPath)
+#$solution = $dte.Solution
+#$solution.Open($solutionPath)
 
-$projects = $solution.Projects
+#$projects = $solution.Projects
 
   # Simulating a failure
   #if ($simulateFail -eq "true") {
@@ -118,9 +122,9 @@ catch {
   exit 1
 }
 finally {
-  if ($null -ne $dte) {
-    $dte.Quit()
-  }
+  #if ($null -ne $dte) {
+  #  $dte.Quit()
+  #}
 }
 
 # Successful execution
