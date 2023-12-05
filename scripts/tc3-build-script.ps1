@@ -74,10 +74,10 @@ function CheckSolutionPathIsValid {
   }
 
   if (Test-Path $FilePath -PathType Leaf -IsValid) {
-        return $true
-    } else {
-        return $false
-    }
+    return $true
+  }
+  
+   return $false
 }
 
 # Print received parameters for logging
