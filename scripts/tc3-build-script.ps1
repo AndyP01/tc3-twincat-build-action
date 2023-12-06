@@ -64,7 +64,7 @@ int MessagePending(IntPtr hTaskCallee, int dwTickCount, int dwPendingType);
     Add-Type -TypeDefinition $source
 }
 
-function CheckSolutionPathIsValid([string]$filePath {
+function CheckSolutionPathIsValid([string]$filePath) {
   if ([string]::IsNullOrEmpty($filePath)) {
     return $false
   }
