@@ -98,10 +98,10 @@ function CheckVSShellIsValid {
 # Echo received parameters for logging
 Write-Host "tc3-build-script Running"
 
-Write-Host "Solution path: $env:solutionPath"
-Write-Host "Target NetId: $env:targetNetId"
-Write-Host "Target platform: $env:targetPlatform"
-Write-Host "Visual Studio shell version: $env:vsShell"
+Write-Host "Solution path: $env:SOLUTION_PATH"
+Write-Host "Target NetId: $env:TARGET_NETID"
+Write-Host "Target platform: $env:TARGET_PLATFORM"
+Write-Host "Visual Studio shell version: $env:VS_SHELL"
 
 # Create COM message filter
 AddMessageFilterClass('') # Call function
@@ -112,19 +112,19 @@ AddMessageFilterClass('') # Call function
 try {
   
   # Input checks
-  if (CheckSolutionPathIsValid($env:solutionPath) -ne $true) {
+  if (CheckSolutionPathIsValid($env:SOLUTION_PATH) -ne $true) {
     throw "Solution not found."
   }
 
-  if (CheckTargetNetIdIsValid($env:targetNetId) -ne $true) {
+  if (CheckTargetNetIdIsValid($env:TARGET_NETID) -ne $true) {
     throw "Target NetId is invalid."
   }
 
-  if (CheckTargetPlatformIsValid($env:targetPlatform) -ne $true) {
+  if (CheckTargetPlatformIsValid($env:TARGET_PLATFORM) -ne $true) {
     throw "Target platform is invalid."
   }
 
-  if (CheckVSShellIsValid($env:vsShell) -ne $true) {
+  if (CheckVSShellIsValid($env:VS_SHELL) -ne $true) {
     throw "VS Sgell requested is invalid."
   }
 
