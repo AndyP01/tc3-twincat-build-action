@@ -93,8 +93,8 @@ function CheckVSShellIsValid([string]$shell, [string[]]$shells) {
   $found = $false
 
   foreach ($s in $shells) {
+    Write-Host $s
     if ($s -eq $shell) {
-      Write-Host "Found"
       $found = $true
     }
   }
