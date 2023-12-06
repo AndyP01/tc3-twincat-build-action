@@ -64,45 +64,29 @@ int MessagePending(IntPtr hTaskCallee, int dwTickCount, int dwPendingType);
     Add-Type -TypeDefinition $source
 }
 
-function CheckSolutionPathIsValid {
-  param (
-    [string]$FilePath
-  )
-
-  if ([string]::IsNullOrEmpty($FilePath)) {
+function CheckSolutionPathIsValid([string]$filePath {
+  if ([string]::IsNullOrEmpty($filePath)) {
     return $false
   }
 
-  if (Test-Path $FilePath -PathType Leaf -IsValid) {
+  if (Test-Path $filePath -PathType Leaf -IsValid) {
     return $true
   }
   
    return $false
 }
 
-function CheckTargetNetIdIsValid {
-  param (
-    [string]$NetId
-  )
-  
+function CheckTargetNetIdIsValid([string]$targetNetId) {
   #TODO
   return $true
 }
 
-function CheckTargetPlatformIsValid {
-  param (
-    [string]$Platform
-  )
-  
+function CheckTargetPlatformIsValid([string]$platform) {
   #TODO
   return $true
 }
 
-function CheckVSShellIsValid {
-  param (
-    [string]$Shell
-  )
-  
+function CheckVSShellIsValid([string]$shell, [string[]]$shells {
   #TODO
   return $true
 }
@@ -115,10 +99,22 @@ Write-Host "Target NetId: $env:TARGET_NETID"
 Write-Host "Target platform: $env:TARGET_PLATFORM"
 Write-Host "Visual Studio shell version: $env:VS_SHELL"
 
+$vs-shells = @(
+  'VisualStudio.DTE.10.0', # VS2010
+  'VisualStudio.DTE.11.0', # VS2012
+  'VisualStudio.DTE.12.0', # VS2013
+  'VisualStudio.DTE.14.0', # VS2015
+  'VisualStudio.DTE.15.0', # VS2017
+  'TcXaeShell.DTE.15.0'    # TwinCAT XAE Shell
+)
+
+$dte = $null
+$solution = $null
+$projects = $null
+
 # Create COM message filter
 AddMessageFilterClass('') # Call function
 [EnvDteUtils.MessageFilter]::Register() # Call static Register Filter Method
-
 
 # Try-Catch block for error handling
 try {
@@ -136,13 +132,13 @@ try {
     throw "Target platform is invalid."
   }
 
-  if (-Not (CheckVSShellIsValid($env:VS_SHELL))) {
+  if (-Not (CheckVSShellIsValid($env:VS_SHELL, $vs-shells))) {
     throw "VS Shell requested is invalid."
   }
 
 
   # Open solution
-  #dte = new-object -ComObject $env:vsShell
+  #$dte = new-object -ComObject $env:vsShell
   #$dte.SuppressUI = $true
   #$dte.MainWindow.Visible = $false
 
