@@ -1,9 +1,6 @@
 name: "TwinCAT Build Action"
 description: "Custom action"
 inputs:
-  solutionPath:
-    description: "Full path of solution file"
-    required: true
   targetNetId:
     description: "NetId of target"
     required: true
@@ -16,11 +13,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - shell : powershell
+    - name: Set environment variables
+      shell : powershell
       env:
-        SolutionPath: ${{ inputs.solutionPath }}
+        #SolutionPath: ${{ inputs.solutionPath }}
         TargetNetId: ${{ inputs.targetNetId }}
         TargetPlatform: ${{ inputs.targetPlatform }}
         VSShell: ${{ inputs.vsShell }}
-      run: |
-        powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
+
+    - name: Run build script
+        run: |
+          powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
