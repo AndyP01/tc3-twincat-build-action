@@ -15,15 +15,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: FindSolution
-        id: findSolution
-        run: |
-          echo "solutionPath=$(Get-ChildItem -Path "${{ github.workspace }}\src" -Filter *.sln -Recurse | ForEach-Object { $_.FullName } >> $env:GITHUB_OUTPUT)"
-
       - name: Run Action
         uses: ./
         with:
-          solutionPath: ${{ steps.findSolution.outputs.solutionPath }}
           targetNetId: '192.168.4.1.1.1'
           targetPlatform: '"TwinCAT RT (x64)"' # double quotes sent as part of the string to stop string being split on spaces
           vsShell: "TcXaeShell.DTE.15.0"      
