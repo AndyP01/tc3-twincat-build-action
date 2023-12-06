@@ -124,19 +124,19 @@ AddMessageFilterClass('') # Call function
 try {
   
   # Input checks
-  #if (CheckSolutionPathIsValid($env:SOLUTION_PATH) -ne $true) {
+  #if (-Not (CheckSolutionPathIsValid($env:SOLUTION_PATH))) {
   #  throw "Solution not found."
   #}
 
-  if (CheckTargetNetIdIsValid($env:TARGET_NETID) -ne $true) {
+  if (-Not (CheckTargetNetIdIsValid($env:TARGET_NETID))) {
     throw "Target NetId is invalid."
   }
 
-  if (CheckTargetPlatformIsValid($env:TARGET_PLATFORM) -ne $true) {
+  if (-Not (CheckTargetPlatformIsValid($env:TARGET_PLATFORM))) {
     throw "Target platform is invalid."
   }
 
-  if (CheckVSShellIsValid($env:VS_SHELL) -ne $true) {
+  if (-Not (CheckVSShellIsValid($env:VS_SHELL))) {
     throw "VS Shell requested is invalid."
   }
 
