@@ -1,5 +1,5 @@
 name: "TwinCAT Build Action"
-description: "Custom action"
+description: "Builds a TwinCAT solution from the checked out repo."
 inputs:
   targetNetId:
     description: "NetId of target"
@@ -15,12 +15,12 @@ runs:
   steps:
     - name: Set environment variables
       shell : powershell
-      env:
-        #SolutionPath: ${{ inputs.solutionPath }}
-        TargetNetId: ${{ inputs.targetNetId }}
-        TargetPlatform: ${{ inputs.targetPlatform }}
-        VSShell: ${{ inputs.vsShell }}
-
+      run: |
+        echo "TargetNetId=${{ inputs.targetNetId }}" >> $GITHUB_ENV
+        echo "TargetPlatform=${{ inputs.targetPlatform }}" >> $GITHUB_ENV
+        echo "VSShell=${{ inputs.vsShell }}" >> $GITHUB_ENV
+      
     - name: Run build script
+        shell: powershell
         run: |
           powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
