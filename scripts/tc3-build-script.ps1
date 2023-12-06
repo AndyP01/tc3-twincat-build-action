@@ -86,7 +86,7 @@ function CheckTargetPlatformIsValid([string]$platform) {
   return $true
 }
 
-function CheckVSShellIsValid([string]$shell, [string[]]$shells {
+function CheckVSShellIsValid([string]$shell, [string[]]$shells) {
   #TODO
   return $true
 }
@@ -99,7 +99,7 @@ Write-Host "Target NetId: $env:TARGET_NETID"
 Write-Host "Target platform: $env:TARGET_PLATFORM"
 Write-Host "Visual Studio shell version: $env:VS_SHELL"
 
-$vs-shells = @(
+$vs_shells = @(
   'VisualStudio.DTE.10.0', # VS2010
   'VisualStudio.DTE.11.0', # VS2012
   'VisualStudio.DTE.12.0', # VS2013
@@ -132,7 +132,7 @@ try {
     throw "Target platform is invalid."
   }
 
-  if (-Not (CheckVSShellIsValid($env:VS_SHELL, $vs-shells))) {
+  if (-Not (CheckVSShellIsValid($env:VS_SHELL, $vs_shells))) {
     throw "VS Shell requested is invalid."
   }
 
