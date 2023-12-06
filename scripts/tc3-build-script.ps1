@@ -88,7 +88,14 @@ function CheckTargetPlatformIsValid([string]$platform) {
 
 function CheckVSShellIsValid([string]$shell, [string[]]$shells) {
   #TODO
-  return $true
+  # check if shell is available as a valid COM object?
+
+  foreach ($s in $shells) {
+    if ($s -eq $shell) {
+      return $true
+    }
+  }
+  return $false
 }
 
 # Echo received parameters for logging
@@ -138,7 +145,7 @@ try {
 
 
   # Open solution
-  #$dte = new-object -ComObject $env:vsShell
+  #$dte = new-object -ComObject $env:VS_SHELL
   #$dte.SuppressUI = $true
   #$dte.MainWindow.Visible = $false
 
@@ -147,10 +154,6 @@ try {
 
   #$projects = $solution.Projects
 
-  # Simulating a failure
-  #if ($simulateFail -eq "true") {
-  #  throw "Simulated failure triggered."
-  #}
 }
 catch {
   # Catching and displaying the error
