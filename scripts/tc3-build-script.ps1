@@ -89,6 +89,7 @@ function CheckTargetPlatformIsValid([string]$platform) {
 function CheckVSShellIsValid([string]$shell, [string[]]$shells) {
   #TODO
   # check if shell is available as a valid COM object?
+  # provide named params
 
   $found = $false
 
@@ -143,15 +144,15 @@ try {
   #  throw "Solution not found."
   #}
 
-  if (-Not (CheckTargetNetIdIsValid($env:TARGET_NETID))) {
+  if (-Not (CheckTargetNetIdIsValid $env:TARGET_NETID)) {
     throw "Target NetId is invalid."
   }
 
-  if (-Not (CheckTargetPlatformIsValid($env:TARGET_PLATFORM))) {
+  if (-Not (CheckTargetPlatformIsValid $env:TARGET_PLATFORM)) {
     throw "Target platform is invalid."
   }
 
-  if (-Not (CheckVSShellIsValid($env:VS_SHELL, $vs_shells))) {
+  if (-Not (CheckVSShellIsValid $env:VS_SHELL $vs_shells)) {
     throw "VS Shell requested is invalid."
   }
 
