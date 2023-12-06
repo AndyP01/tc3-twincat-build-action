@@ -17,8 +17,8 @@ runs:
       shell : powershell
       run: |
         echo "TargetNetId=$(${{ inputs.target-net-id }} >> $env:GITHUB_ENV)"
-        echo "TargetPlatform=$(${{ inputs.target-platform }} >> $env:GITHUB_ENV)"
-        echo "VSShell=$(${{ inputs.vs-shell }} >> $env:ITHUB_ENV)"
+        #echo "TargetPlatform=$(${{ inputs.target-platform }} >> $env:GITHUB_ENV)"
+        #echo "VSShell=$(${{ inputs.vs-shell }} >> $env:ITHUB_ENV)"
       
     - name: Run build script
       shell: powershell
