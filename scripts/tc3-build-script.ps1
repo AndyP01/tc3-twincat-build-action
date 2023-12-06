@@ -94,14 +94,17 @@ function CheckVSShellIsValid([string]$shell, [string[]]$shells) {
 
   foreach ($s in $shells) {
     if ($s -eq $shell) {
+      Write-Host "Found"
       $found = $true
     }
   }
 
   if (-Not ($found)) {
+    Write-Host "Not Found"
     return $false
   }
-  
+
+  Write-Host "Exit function"
   return $true
 }
 
