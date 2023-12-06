@@ -81,16 +81,28 @@ function CheckSolutionPathIsValid {
 }
 
 function CheckTargetNetIdIsValid {
+  param (
+    [string]$NetId
+  )
+  
   #TODO
   return $true
 }
 
 function CheckTargetPlatformIsValid {
+  param (
+    [string]$Platform
+  )
+  
   #TODO
   return $true
 }
 
 function CheckVSShellIsValid {
+  param (
+    [string]$Shell
+  )
+  
   #TODO
   return $true
 }
