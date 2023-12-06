@@ -1,13 +1,13 @@
 name: "TwinCAT Build Action"
 description: "Builds a TwinCAT solution from the checked out repo."
 inputs:
-  targetNetId:
+  target-net-id:
     description: "NetId of target"
     required: true
-  targetPlatform:
+  target-platform:
     description: "Target CPU architecture"
     required: true
-  vsShell:
+  vs-shell:
     description: "Visual Studio shell version"
     required: true
 runs:
@@ -16,9 +16,9 @@ runs:
     - name: Set environment variables
       shell : powershell
       run: |
-        echo "TargetNetId=${{ inputs.targetNetId }}" >> $GITHUB_ENV
-        echo "TargetPlatform=${{ inputs.targetPlatform }}" >> $GITHUB_ENV
-        echo "VSShell=${{ inputs.vsShell }}" >> $GITHUB_ENV
+        echo "TargetNetId=${{ inputs.target-net-id }}" >> $GITHUB_ENV
+        echo "TargetPlatform=${{ inputs.target-platform }}" >> $GITHUB_ENV
+        echo "VSShell=${{ inputs.vs-shell }}" >> $GITHUB_ENV
       
     - name: Run build script
         shell: powershell
