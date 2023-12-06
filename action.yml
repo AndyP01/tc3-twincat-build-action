@@ -21,6 +21,6 @@ runs:
         echo "VSShell=$(${{ inputs.vs-shell }} >> $GITHUB_ENV)"
       
     - name: Run build script
-        shell: powershell
-        run: |
-          powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
+      shell: powershell
+      run: |
+        powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
