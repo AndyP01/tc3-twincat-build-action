@@ -90,12 +90,19 @@ function CheckVSShellIsValid([string]$shell, [string[]]$shells) {
   #TODO
   # check if shell is available as a valid COM object?
 
+  $found = $false
+
   foreach ($s in $shells) {
     if ($s -eq $shell) {
-      return $true
+      $found = $true
     }
   }
-  return $false
+
+  if (-Not ($found)) {
+    return $false
+  }
+  
+  return $true
 }
 
 # Echo received parameters for logging
