@@ -99,7 +99,7 @@ function CheckVSShellIsValid {
     $paths += "REGISTRY::HKEY_CLASSES_ROOT\WOW432NODE\CLSID"
   }
 
-  $progId = get-childitem -Path $paths -include PROGID -recurse | foreach {$_.GetValue(“")} | where { $_ -eq $Shell }
+  $progId = get-childitem -Path $paths -include PROGID -recurse | foreach {$_.GetValue("")} | where { $_ -eq $Shell }
 
   if ($null -eq $progId) {
     return $false
@@ -147,9 +147,9 @@ try {
 
 
   # Open solution
-  $dte = new-object -ComObject $env:VS_SHELL
-  $dte.SuppressUI = $true
-  $dte.MainWindow.Visible = $false
+  #$dte = new-object -ComObject $env:VS_SHELL
+  #$dte.SuppressUI = $true
+  #$dte.MainWindow.Visible = $false
 
   #$solution = $dte.Solution
   #$solution.Open($solutionPath)
