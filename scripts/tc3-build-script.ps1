@@ -86,17 +86,23 @@ function CheckTargetPlatformIsValid([string]$platform) {
   return $true
 }
 
-function CheckVSShellIsValid([string]$shell, [string[]]$shells) {
+function CheckVSShellIsValid() {
+  param (
+    [Parameter(Mandatory)]
+    [string]$Shell,
+
+    [Parameter(Mandatory)]
+    [string[]]$AraayToCheck
+  )
   #TODO
   # check if shell is available as a valid COM object?
-  # provide named params
 
   $found = $false
   $valid = false
 
-  foreach ($s in $shells) {
+  foreach ($s in $ArrayToCheck) {
     $s
-    if ($s -eq $shell) {
+    if ($s -eq $Shell) {
       $found = $true
     }
   }
@@ -148,7 +154,7 @@ try {
     throw "Target platform is invalid."
   }
 
-  if (-Not (CheckVSShellIsValid $env:VS_SHELL $vs_shells)) {
+  if (-Not (CheckVSShellIsValid -Shell $env:VS_SHELL -ArrayToCheck $vs_shells)) {
     throw "VS Shell requested is invalid."
   }
 
