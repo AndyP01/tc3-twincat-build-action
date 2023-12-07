@@ -97,6 +97,7 @@ function CheckVSShellIsValid {
   
   $found = $false
   $valid = false
+  $progId = $null
 
   foreach ($s in $ArrayToCheck) {
     if ($s -eq $Shell) {
@@ -108,9 +109,13 @@ function CheckVSShellIsValid {
     return $false
   }
 
-  #TODO
-  # check if shell is available as a valid COM object?
-  #get-childitem REGISTRY::HKEY_CLASSES_ROOT\WOW6432NODE\CLSID -include PROGID -recurse | foreach {$_.GetValue(“")} | where { $_ -eq "TcXaeShell.DTE.15.0" }
+  # check if shell is available as a valid COM object
+  $progId = get-childitem REGISTRY::HKEY_CLASSES_ROOT\WOW6432NODE\CLSID -include PROGID -recurse | foreach {$_.GetValue(“")} | where { $_ -eq $Shell }
+
+  if ($null -eq $progId) {
+    return $false
+  }
+  
   return $true
 }
 
@@ -128,7 +133,9 @@ $vs_shells = @(
   'VisualStudio.DTE.12.0', # VS2013
   'VisualStudio.DTE.14.0', # VS2015
   'VisualStudio.DTE.15.0', # VS2017
-  'TcXaeShell.DTE.15.0'    # TwinCAT XAE Shell
+  'VisualStudio.DTE.16.0', # VS2019
+  'TcXaeShell.DTE.15.0',   # TwinCAT XAE Shell 32-bit based on VS2017
+  'TcXaeShell.DTE.17.0'    # TwinCAT XAE Shell 64-bit based on VS2022
 )
 
 $dte = $null
