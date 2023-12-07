@@ -96,7 +96,6 @@ function CheckVSShellIsValid {
   )
   
   $found = $false
-  $valid = false
   $progId = $null
 
   foreach ($s in $ArrayToCheck) {
