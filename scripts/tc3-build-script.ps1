@@ -103,6 +103,8 @@ function CheckVSShellIsValid {
 
   $progId = get-childitem -Path $paths -include PROGID -recurse | foreach {$_.GetValue("")} | where { $_ -eq $Shell }
 
+  Write-Host "ProgId: $progId"
+
   if ($null -eq $progId) {
     return $false
   }
