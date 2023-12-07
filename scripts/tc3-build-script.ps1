@@ -92,7 +92,7 @@ function CheckVSShellIsValid() {
     [string]$Shell,
 
     [Parameter(Mandatory)]
-    [string[]]$AraayToCheck
+    [string[]]$ArrayToCheck
   )
   #TODO
   # check if shell is available as a valid COM object?
