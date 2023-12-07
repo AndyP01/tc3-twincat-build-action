@@ -149,14 +149,16 @@ try {
 
 
   # Open solution
-  #$dte = new-object -ComObject $env:VS_SHELL
-  #$dte.SuppressUI = $true
-  #$dte.MainWindow.Visible = $false
+  $dte = new-object -ComObject $env:VS_SHELL
+  $dte.SuppressUI = $true
+  $dte.MainWindow.Visible = $false
 
-  #$solution = $dte.Solution
-  #$solution.Open($solutionPath)
+  $solution = $dte.Solution
+  $solution.Open($solutionPath)
 
-  #$projects = $solution.Projects
+  $projects = $solution.Projects
+
+  $dte.Quit()
 
 }
 catch {
