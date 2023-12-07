@@ -86,7 +86,7 @@ function CheckTargetPlatformIsValid([string]$platform) {
   return $true
 }
 
-function CheckVSShellIsValid() {
+function CheckVSShellIsValid {
   param (
     [Parameter(Mandatory)]
     [string]$Shell,
@@ -94,14 +94,11 @@ function CheckVSShellIsValid() {
     [Parameter(Mandatory)]
     [string[]]$ArrayToCheck
   )
-  #TODO
-  # check if shell is available as a valid COM object?
-
+  
   $found = $false
   $valid = false
 
   foreach ($s in $ArrayToCheck) {
-    $s
     if ($s -eq $Shell) {
       $found = $true
     }
@@ -110,6 +107,10 @@ function CheckVSShellIsValid() {
   if (-Not ($found)) {
     return $false
   }
+
+  #TODO
+  # check if shell is available as a valid COM object?
+  #get-childitem REGISTRY::HKEY_CLASSES_ROOT\WOW6432NODE\CLSID -include PROGID -recurse | foreach {$_.GetValue(“")} | where { $_ -eq "TcXaeShell.DTE.15.0" }
   return $true
 }
 
