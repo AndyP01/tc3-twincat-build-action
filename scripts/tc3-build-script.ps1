@@ -65,15 +65,13 @@ int MessagePending(IntPtr hTaskCallee, int dwTickCount, int dwPendingType);
 }
 
 function CheckSolutionPathIsValid([string]$filePath) {
-  if ([string]::IsNullOrEmpty($filePath)) {
+  if ( [string]::IsNullOrEmpty($filePath)) {
     return $false
   }
-
-  if (Test-Path $filePath -PathType Leaf -IsValid) {
-    return $true
+  if ( -Not (Test-Path $filePath -PathType Leaf -IsValid)) {
+    return $false
   }
-  
-   return $false
+  return $true
 }
 
 function CheckTargetNetIdIsValid([string]$targetNetId) {
@@ -90,33 +88,26 @@ function CheckVSShellIsValid {
   param (
     [Parameter(Mandatory)]
     [string]$Shell,
-
-    [Parameter(Mandatory)]
-    [string[]]$ArrayToCheck
   )
   
-  $found = $false
   $progId = $null
 
-  foreach ($s in $ArrayToCheck) {
-    if ($s -eq $Shell) {
-      $found = $true
-    }
+  # search registry to check if shell is available as a valid COM object
+  $paths = @("REGISTRY::HKEY_CLASSES_ROOT\CLSID")
+  
+  if ($env:Processor_Architecture -eq "AMD64") {
+    $paths += "REGISTRY::HKEY_CLASSES_ROOT\WOW432NODE\CLSID"
   }
 
-  if (-Not ($found)) {
-    return $false
-  }
-
-  # check if shell is available as a valid COM object
-  $progId = get-childitem REGISTRY::HKEY_CLASSES_ROOT\WOW6432NODE\CLSID -include PROGID -recurse | foreach {$_.GetValue(“")} | where { $_ -eq $Shell }
+  $progId = get-childitem -Path $paths -include PROGID -recurse | foreach {$_.GetValue(“")} | where { $_ -eq $Shell }
 
   if ($null -eq $progId) {
     return $false
   }
-  
   return $true
 }
+
+########################################################
 
 # Echo received parameters for logging
 Write-Host "tc3-build-script Running"
@@ -125,17 +116,6 @@ Write-Host "Solution path: $env:SOLUTION_PATH"
 Write-Host "Target NetId: $env:TARGET_NETID"
 Write-Host "Target platform: $env:TARGET_PLATFORM"
 Write-Host "Visual Studio shell version: $env:VS_SHELL"
-
-$vs_shells = @(
-  'VisualStudio.DTE.10.0', # VS2010
-  'VisualStudio.DTE.11.0', # VS2012
-  'VisualStudio.DTE.12.0', # VS2013
-  'VisualStudio.DTE.14.0', # VS2015
-  'VisualStudio.DTE.15.0', # VS2017
-  'VisualStudio.DTE.16.0', # VS2019
-  'TcXaeShell.DTE.15.0',   # TwinCAT XAE Shell 32-bit based on VS2017
-  'TcXaeShell.DTE.17.0'    # TwinCAT XAE Shell 64-bit based on VS2022
-)
 
 $dte = $null
 $solution = $null
@@ -161,15 +141,15 @@ try {
     throw "Target platform is invalid."
   }
 
-  if (-Not (CheckVSShellIsValid -Shell $env:VS_SHELL -ArrayToCheck $vs_shells)) {
+  if (-Not (CheckVSShellIsValid -Shell $env:VS_SHELL)) {
     throw "VS Shell requested is invalid."
   }
 
 
   # Open solution
-  #$dte = new-object -ComObject $env:VS_SHELL
-  #$dte.SuppressUI = $true
-  #$dte.MainWindow.Visible = $false
+  $dte = new-object -ComObject $env:VS_SHELL
+  $dte.SuppressUI = $true
+  $dte.MainWindow.Visible = $false
 
   #$solution = $dte.Solution
   #$solution.Open($solutionPath)
@@ -184,9 +164,9 @@ catch {
 }
 finally {
   # Clean up dte object.
-  #if ($null -ne $dte) {
-  #  $dte.Quit()
-  #}
+  if ($null -ne $dte) {
+    $dte.Quit()
+  }
 }
 
 [EnvDTEUtils.MessageFilter]::Revoke()
