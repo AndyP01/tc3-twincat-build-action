@@ -92,7 +92,7 @@ function CheckVSShellIsValid {
   
   $progId = $null
   $Path32Bit = "REGISTRY::HKEY_CLASSES_ROOT\CLSID"
-  $Path64Bit = "REGISTRY::HKEY_CLASSES_ROOT\WOW432NODE\CLSID"
+  $Path64Bit = "REGISTRY::HKEY_CLASSES_ROOT\WOW6432NODE\CLSID"
 
   # search registry to check if shell is available as a valid COM object
   $paths = @($Path32Bit)
