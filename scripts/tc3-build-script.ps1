@@ -91,12 +91,14 @@ function CheckVSShellIsValid {
   )
   
   $progId = $null
+  $Path32Bit = "REGISTRY::HKEY_CLASSES_ROOT\CLSID"
+  $Path64Bit = "REGISTRY::HKEY_CLASSES_ROOT\WOW432NODE\CLSID"
 
   # search registry to check if shell is available as a valid COM object
-  $paths = @("REGISTRY::HKEY_CLASSES_ROOT\CLSID")
+  $paths = @($Path32Bit)
   
-  if ($env:Processor_Architecture -eq "AMD64") {
-    $paths += "REGISTRY::HKEY_CLASSES_ROOT\WOW432NODE\CLSID"
+  if (Test-Path -Path $Path64Bit) {
+    $paths += $Path64Bit
   }
 
   $progId = get-childitem -Path $paths -include PROGID -recurse | foreach {$_.GetValue("")} | where { $_ -eq $Shell }
