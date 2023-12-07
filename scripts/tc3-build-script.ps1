@@ -87,7 +87,7 @@ function CheckTargetPlatformIsValid([string]$platform) {
 function CheckVSShellIsValid {
   param (
     [Parameter(Mandatory)]
-    [string]$Shell,
+    [string]$Shell
   )
   
   $progId = $null
