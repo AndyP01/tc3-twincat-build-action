@@ -136,10 +136,12 @@ function CheckVSShellIsValid {
 # Echo received parameters for logging
 Write-Host "tc3-build-script Running"
 
-Write-Host "Solution path: $env:SOLUTION_PATH"
-Write-Host "Target NetId: $env:TARGET_NETID"
-Write-Host "Target platform: $env:TARGET_PLATFORM"
-Write-Host "Visual Studio shell version: $env:VS_SHELL"
+if ($env:DEBUG -eq $true) {
+  Write-Host "Solution path: $env:SOLUTION_PATH"
+  Write-Host "Target NetId: $env:TARGET_NETID"
+  Write-Host "Target platform: $env:TARGET_PLATFORM"
+  Write-Host "Visual Studio shell version: $env:VS_SHELL"
+}
 
 $dte = $null
 $solution = $null
