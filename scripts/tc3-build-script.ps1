@@ -136,16 +136,11 @@ function CheckVSShellIsValid {
 # Echo received parameters for logging
 Write-Host "tc3-build-script Running"
 
-if ($env:DEBUG -eq $true) {
-  Write-Host "Solution path: $env:SOLUTION_PATH"
-  Write-Host "Target NetId: $env:TARGET_NETID"
-  Write-Host "Target platform: $env:TARGET_PLATFORM"
-  Write-Host "Visual Studio shell version: $env:VS_SHELL"
-}
+Write-Host "Solution path: $env:SOLUTION_PATH"
+Write-Host "Target NetId: $env:TARGET_NETID"
+Write-Host "Target platform: $env:TARGET_PLATFORM"
+Write-Host "Visual Studio shell version: $env:VS_SHELL"
 
-$dte = $null
-$solution = $null
-$projects = $null
 
 # Create COM message filter
 AddMessageFilterClass('') # Call function
@@ -171,18 +166,17 @@ try {
     throw "VS Shell requested is invalid."
   }
 
-
   # Open solution
-  #$dte = new-object -ComObject $env:VS_SHELL
-  #$dte.SuppressUI = $true
-  #$dte.MainWindow.Visible = $false
+  $dte = new-object -ComObject $env:VS_SHELL
+  $dte.SuppressUI = $true
+  $dte.MainWindow.Visible = $false
 
-  #$solution = $dte.Solution
-  #$solution.Open($solutionPath)
+  $solution = $dte.Solution
+  $solution.Open($env:SOLUTION_PATH)
 
-  #$projects = $solution.Projects
+  $projects = $solution.Projects
 
-  #$dte.Quit()
+  $dte.Quit()
 
 }
 catch {
@@ -192,9 +186,9 @@ catch {
 }
 finally {
   # Clean up dte object.
-  #if ($null -ne $dte) {
-  #  $dte.Quit()
-  #}
+  if ($null -ne $dte) {
+    $dte.Quit()
+  }
 }
 
 [EnvDTEUtils.MessageFilter]::Revoke()
