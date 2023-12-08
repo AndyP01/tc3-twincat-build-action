@@ -13,7 +13,7 @@ inputs:
   vs-shell:
     description: "Visual Studio shell version"
     required: true
- runs:
+runs:
   using: "composite"
   steps:
     - name: Set environment variables
