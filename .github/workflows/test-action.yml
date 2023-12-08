@@ -18,6 +18,7 @@ jobs:
       - name: Run build script
         uses: ./
         with:
+          solution-path: ${{ github.workspace }}
           target-net-id: '192.168.4.1.1.1'
           target-platform: '"TwinCAT RT (x64)"' # double quotes sent as part of the string to stop string being split on spaces
-          vs-shell: "TcXaeShell.DTE.15.0"      
+          vs-shell: "TcXaeShell.DTE.15.0"
