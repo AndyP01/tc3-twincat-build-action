@@ -176,7 +176,8 @@ try {
 
   $projects = $solution.Projects
 
-  $dte.Quit()
+  # Call quit from finally block? Calling it twice causes an exception.
+  #$dte.Quit()
 
 }
 catch {
