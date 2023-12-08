@@ -174,7 +174,11 @@ try {
   $solution = $dte.Solution
   $solution.Open($env:SOLUTION_PATH)
 
-  $projects = $solution.Projects
+  $project = $solution.Projects.Item(1)
+  $systemManager = $project.Object
+
+  $systemManager.ActivateConfiguration()
+  $systemManager.StartRestartTwinCAT() 
 
   # Call quit from finally block? Calling it twice causes an exception.
   #$dte.Quit()
