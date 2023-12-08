@@ -64,26 +64,49 @@ int MessagePending(IntPtr hTaskCallee, int dwTickCount, int dwPendingType);
     Add-Type -TypeDefinition $source
 }
 
-function CheckSolutionPathIsValid([string]$filePath) {
-  if ( [string]::IsNullOrEmpty($filePath)) {
+###########################################
+function CheckSolutionPathIsValid {
+  param (
+    [Parameter(Mandatory)]
+    [string]$Path
+  )
+  
+  if ([string]::IsNullOrEmpty($Path)) {
     return $false
   }
-  if ( -Not (Test-Path $filePath -PathType Leaf -IsValid)) {
+  if ( -Not (Test-Path $Path -PathType Leaf -IsValid)) {
     return $false
   }
   return $true
 }
 
-function CheckTargetNetIdIsValid([string]$targetNetId) {
-  #TODO
+###########################################
+function CheckTargetNetIdIsValid {
+   param (
+    [Parameter(Mandatory)]
+    [string]$NetId
+  )
+  
+  if ([string]::IsNullOrEmpty($NetId)) {
+    return $false
+  }
   return $true
 }
 
-function CheckTargetPlatformIsValid([string]$platform) {
-  #TODO
+###########################################
+function CheckTargetPlatformIsValid {
+   param (
+    [Parameter(Mandatory)]
+    [string]$Platform
+   )
+   
+   if ([string]::IsNullOrEmpty($Platform)) {
+    return $false
+  }
   return $true
 }
 
+###########################################
 function CheckVSShellIsValid {
   param (
     [Parameter(Mandatory)]
@@ -109,8 +132,7 @@ function CheckVSShellIsValid {
   return $true
 }
 
-########################################################
-
+###########################################
 # Echo received parameters for logging
 Write-Host "tc3-build-script Running"
 
@@ -131,15 +153,15 @@ AddMessageFilterClass('') # Call function
 try {
   
   # Input checks
-  #if (-Not (CheckSolutionPathIsValid($env:SOLUTION_PATH))) {
-  #  throw "Solution not found."
-  #}
+  if (-Not (CheckSolutionPathIsValid -Path $env:SOLUTION_PATH)) {
+    throw "Solution not found."
+  }
 
-  if (-Not (CheckTargetNetIdIsValid $env:TARGET_NETID)) {
+  if (-Not (CheckTargetNetIdIsValid -NetId $env:TARGET_NETID)) {
     throw "Target NetId is invalid."
   }
 
-  if (-Not (CheckTargetPlatformIsValid $env:TARGET_PLATFORM)) {
+  if (-Not (CheckTargetPlatformIsValid -Platform $env:TARGET_PLATFORM)) {
     throw "Target platform is invalid."
   }
 
