@@ -143,6 +143,7 @@ Write-Host "Solution path: $env:SOLUTION_PATH"
 Write-Host "Target NetId: $env:TARGET_NETID"
 Write-Host "Target platform: $env:TARGET_PLATFORM"
 Write-Host "Visual Studio shell version: $env:VS_SHELL"
+Write-Host "Visual Studio display UI: $env:VS_UI"
 
 
 # Create COM message filter
