@@ -182,7 +182,7 @@ try {
   $systemManager.StartRestartTwinCAT() 
 
   $errors = $dte.ToolWindows.ErrorList.ErrorItems
-  $errors
+  Write-Host "Error tab: $errors"
 
    # Call quit from finally block? Calling it twice causes an exception.
   #$dte.Quit()
