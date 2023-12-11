@@ -1,6 +1,3 @@
-# TODO pass in:
-#   shell is visible or suppressed
-
 function AddMessageFilterClass { 
     $source = @'
 
