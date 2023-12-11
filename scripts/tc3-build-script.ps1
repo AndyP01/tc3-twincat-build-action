@@ -172,7 +172,7 @@ try {
 
   # Open solution
   $dte = new-object -ComObject $env:VS_SHELL
-  $dte.SuppressUI = Not ($env:VS_UI)
+  $dte.SuppressUI = !$env:VS_UI
   $dte.MainWindow.Visible = $env:VS_UI
 
   $solution = $dte.Solution
