@@ -177,21 +177,14 @@ try {
 
   $project = $solution.Projects.Item(1)
   $systemManager = $project.Object
-
-  Write-Host "Get-Error call 1."
-  Get-Error -Newest 3
-
-  $systemManager.ActivateConfiguration()
-
-  Write-Host "Get-Error call 2."
-  Get-Error -Newest 3
   
+  $systemManager.ActivateConfiguration()
   $systemManager.StartRestartTwinCAT() 
 
-  Write-Host "Get-Error call 3."
-    Get-Error -Newest 3
+  $errors = $dte.ToolWindows.ErrorList.ErrorItems
+  $errors
 
-  # Call quit from finally block? Calling it twice causes an exception.
+   # Call quit from finally block? Calling it twice causes an exception.
   #$dte.Quit()
 
 }
