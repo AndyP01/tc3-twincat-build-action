@@ -90,6 +90,9 @@ function CheckTargetNetIdIsValid {
   if ([string]::IsNullOrEmpty($NetId)) {
     return $false
   }
+  if ( -Not ($NetId -match '^(\d{1,3}\.){5}\d{1,3}$')) { # check for a.b.c.d.e.f
+    return $false
+  }
   return $true
 }
 
@@ -193,6 +196,7 @@ finally {
   # Clean up dte object.
   if ($null -ne $dte) {
     $dte.Quit()
+    $dte = $null
   }
 }
 
