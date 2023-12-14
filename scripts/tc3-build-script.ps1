@@ -140,7 +140,7 @@ Write-Host "Solution path: $env:SOLUTION_PATH"
 Write-Host "Target NetId: $env:TARGET_NETID"
 Write-Host "Target platform: $env:TARGET_PLATFORM"
 Write-Host "Visual Studio shell version: $env:VS_SHELL"
-Write-Host "Visual Studio display UI: $env:VS_UI"
+Write-Host "Visual Studio UI silent mode: $env:VS_SILENT"
 
 
 # Create COM message filter
@@ -167,24 +167,49 @@ try {
     throw "VS Shell requested is invalid."
   }
 
-  # Open solution
   $dte = new-object -ComObject $env:VS_SHELL
-  $dte.SuppressUI = !$env:VS_UI
-  $dte.MainWindow.Visible = $env:VS_UI
 
+  $settings = $dte.GetObject("TcAutomationSettings")
+  $settings.SilentMode = $env:VS_SILENT
+
+  Write-Host "Open solution."
   $solution = $dte.Solution
   $solution.Open($env:SOLUTION_PATH)
 
   $project = $solution.Projects.Item(1)
   $systemManager = $project.Object
+
+  $configManager = $systemManager.ConfigurationManager
+  $configManager.ActiveTargetPlatform = $env:TARGET_PLATFORM
+
+  $systemManager.SetTargetNetId($env:TARGET_NETID)
+
+  $plcProject = $systemManager.LookupTreeItem("TIPC^Main")
+  $plcProject.BootProjectAutostart = $true
+  $plcProject.GenerateBootProject($true)
+
+  Write-Host "Build project."
+  $solution.SolutionBuild.Build($true) #Optional. Determines whether Build(Boolean) retains control until the build operation is complete. Default value is false.
+
+  if($solution.SolutionBuild.LastBuildInfo -eq 0)
+  {
+    Write-Host "Build succeeded."
+  }
+  else {
+    throw "Build failed."
+  }
   
   $systemManager.ActivateConfiguration()
+
+  Start-Sleep -s 2
+  
   $systemManager.StartRestartTwinCAT() 
 
-  $errors = $dte.ToolWindows.ErrorList.ErrorItems
-  Write-Host "Error tab: $errors"
+  Start-Sleep -s 2
 
-   # Call quit from finally block? Calling it twice causes an exception.
+  $solution.Close()
+
+  # Call quit from finally block? Calling it twice causes an exception.
   #$dte.Quit()
 
 }
@@ -197,7 +222,7 @@ finally {
   # Clean up dte object.
   if ($null -ne $dte) {
     $dte.Quit()
-    $dte = $null
+    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($dte) | Out-Null
   }
 }
 
