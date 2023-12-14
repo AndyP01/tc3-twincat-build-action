@@ -13,10 +13,10 @@ inputs:
   vs-shell:
     description: "Visual Studio shell version"
     required: true
-  display-ui:
-    description: "Display Visual Studio UI"
+  vs-silent:
+    description: "Visual Studio UI silent mode"
     required: false
-    default: '$false'
+    default: '$true'
 runs:
   using: "composite"
   steps:
@@ -27,7 +27,7 @@ runs:
         echo "TARGET_NETID=${{ inputs.target-net-id }}" >> $env:GITHUB_ENV
         echo "TARGET_PLATFORM=$(${{ inputs.target-platform }})" >> $env:GITHUB_ENV
         echo "VS_SHELL=${{ inputs.vs-shell }}" >> $env:GITHUB_ENV
-        echo "VS_UI=${{ inputs.display-ui }}" >> $env:GITHUB_ENV
+        echo "VS_SILENT=${{ inputs.vs-silent }}" >> $env:GITHUB_ENV
                    
     - name: Run build script
       shell: powershell
