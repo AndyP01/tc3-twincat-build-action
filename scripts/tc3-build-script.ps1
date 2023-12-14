@@ -198,11 +198,13 @@ try {
   else {
     throw "Build failed."
   }
-  
+
+  Write-Host "Activate configuration."
   $systemManager.ActivateConfiguration()
 
   Start-Sleep -s 2
-  
+
+  Write-Host "Restart TwinCAT."
   $systemManager.StartRestartTwinCAT() 
 
   Start-Sleep -s 2
