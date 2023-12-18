@@ -148,6 +148,9 @@ try {
 
   Start-Sleep -s 2
 
+  # TODO check for activation errors, like no licenses
+  # TODO check test results, upload artifact of compiled library if passing, etc
+  
   $solution.Close()
 
   # Call quit from finally block? Calling it twice causes an exception.
