@@ -1,3 +1,4 @@
+cd $PSScriptRoot
 . .\MessageFilter.ps1
 
 ###########################################
@@ -81,9 +82,8 @@ Write-Host "Target platform: $env:TARGET_PLATFORM"
 Write-Host "Visual Studio shell version: $env:VS_SHELL"
 Write-Host "Visual Studio UI silent mode: $env:VS_SILENT"
 
-
 # Create COM message filter
-AddMessageFilterClass('') # Call function
+AddMessageFilterClass
 [EnvDteUtils.MessageFilter]::Register() # Call static Register Filter Method
 
 # Try-Catch block for error handling
