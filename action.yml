@@ -32,5 +32,4 @@ runs:
     - name: Run build script
       shell: powershell
       run: |
-        cd ${{ github.action_path }}/scripts
         powershell -File ${{ github.action_path }}/scripts/tc3-build-script.ps1
