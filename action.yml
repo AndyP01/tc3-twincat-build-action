@@ -25,7 +25,7 @@ runs:
       run: |
         echo "SOLUTION_PATH=${{ inputs.solution-path }}" >> $env:GITHUB_ENV
         echo "TARGET_NETID=${{ inputs.target-net-id }}" >> $env:GITHUB_ENV
-        echo "TARGET_PLATFORM=$(${{ inputs.target-platform }})" >> $env:GITHUB_ENV
+        echo "TARGET_PLATFORM=${{ inputs.target-platform }}" >> $env:GITHUB_ENV
         echo "VS_SHELL=${{ inputs.vs-shell }}" >> $env:GITHUB_ENV
         echo "VS_SILENT=${{ inputs.vs-silent }}" >> $env:GITHUB_ENV
                    
