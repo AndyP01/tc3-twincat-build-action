@@ -21,7 +21,7 @@ runs:
   using: "composite"
   steps:
     - name: Set environment variables
-      shell : powershell
+      shell: powershell
       run: |
         echo "SOLUTION_PATH=${{ inputs.solution-path }}" >> $env:GITHUB_ENV
         echo "TARGET_NETID=${{ inputs.target-net-id }}" >> $env:GITHUB_ENV
