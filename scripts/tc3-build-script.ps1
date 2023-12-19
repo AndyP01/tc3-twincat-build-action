@@ -106,6 +106,7 @@ try {
     throw "VS Shell requested is invalid."
   }
 
+  Write-Host "Open VS instance."
   $dte = new-object -ComObject $env:VS_SHELL
 
   $settings = $dte.GetObject("TcAutomationSettings")
@@ -119,16 +120,24 @@ try {
   $project = $solution.Projects.Item(1)
   $systemManager = $project.Object
 
+  Write-Host "Set target platform."
   $configManager = $systemManager.ConfigurationManager
-  $configManager.ActiveTargetPlatform = $env:TARGET_PLATFORM
+  if ($configManager.TargetPlatforms -ccontains $env:TARGET_PLATFORM) {
+    $configManager.ActiveTargetPlatform = $env:TARGET_PLATFORM
+  }
+  else {
+    throw "Target platform not found."
+  }
 
+  Write-Host "Set target Net Id."
   $systemManager.SetTargetNetId($env:TARGET_NETID)
 
+  Write-Host "Configure boot project."
   $plcProject = $systemManager.LookupTreeItem("TIPC^Main")
-  $plcProject.BootProjectAutostart = $true
+  $plcProject.BootProjectAutoStart = $true
   $plcProject.GenerateBootProject($true)
 
-  Write-Host "Build project."
+  Write-Host "Build solution."
   $solution.SolutionBuild.Build($true) #Optional. Determines whether Build(Boolean) retains control until the build operation is complete. Default value is false.
 
   if($solution.SolutionBuild.LastBuildInfo -eq 0)
@@ -151,7 +160,8 @@ try {
 
   # TODO check for activation errors, like no licenses
   # TODO check test results, upload artifact of compiled library if passing, etc
-  
+
+  Write-Host "Close solution."
   $solution.Close()
 
   # Call quit from finally block? Calling it twice causes an exception.
