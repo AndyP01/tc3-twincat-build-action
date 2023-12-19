@@ -73,6 +73,17 @@ function CheckVSShellIsValid {
 }
 
 ###########################################
+function CleanupDTE {
+    param (
+        [ref]$dteObj
+    )
+
+    if ($null -ne $dteObj.Value) {
+      $dteObj.Value.Quit()
+  }
+}
+
+###########################################
 # Echo received parameters for logging
 Write-Host "tc3-build-script Running"
 
@@ -161,22 +172,17 @@ try {
   Write-Host "Close solution."
   $solution.Close()
 
-  # Only call quit from finally block? Calling it twice causes an exception if it has already been disposed.
-  # TODO Create a Cleanup function that is called here and from within Finally block?
-  #$dte.Quit()
-
+  Write-Host "Cleanup VS instance."
+  CleanupDTE ([ref]$dte)
 }
 catch {
   # Catching and displaying the error
   Write-Host "Error: $_"
+  CleanupDTE ([ref]$dte)
   exit 1
 }
 finally {
-  # Clean up dte object.
-  if ($null -ne $dte) {
-    $dte.Quit()
-    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($dte) | Out-Null
-  }
+  [System.Runtime.InteropServices.Marshal]::ReleaseComObject($dte) | Out-Null
 }
 
 [EnvDTEUtils.MessageFilter]::Revoke()
