@@ -111,7 +111,7 @@ try {
 
   $settings = $dte.GetObject("TcAutomationSettings")
   $settings.SilentMode = $env:VS_SILENT
-  $dte.UserControl = $false;
+  $dte.UserControl = $false
 
   Write-Host "Open solution."
   $solution = $dte.Solution
