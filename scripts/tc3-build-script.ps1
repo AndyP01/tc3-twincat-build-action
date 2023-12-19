@@ -140,11 +140,7 @@ try {
   Write-Host "Build solution."
   $solution.SolutionBuild.Build($true) #Optional. Determines whether Build(Boolean) retains control until the build operation is complete. Default value is false.
 
-  if($solution.SolutionBuild.LastBuildInfo -eq 0)
-  {
-    Write-Host "Build succeeded."
-  }
-  else {
+  if(-Not ($solution.SolutionBuild.LastBuildInfo -eq 0)) {
     throw "Build failed."
   }
 
