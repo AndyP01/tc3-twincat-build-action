@@ -159,12 +159,14 @@ try {
   Start-Sleep -s 2
 
   # TODO check for activation errors, like no licenses
+  # TODO No licenses brings up dialog boxes even is UI has been suppressed. How to avoid and deal with this?
   # TODO check test results, upload artifact of compiled library if passing, etc
 
   Write-Host "Close solution."
   $solution.Close()
 
-  # Call quit from finally block? Calling it twice causes an exception.
+  # Only call quit from finally block? Calling it twice causes an exception if it has already been disposed.
+  # TODO Create a Cleanup function that is called here and from within Finally block?
   #$dte.Quit()
 
 }
